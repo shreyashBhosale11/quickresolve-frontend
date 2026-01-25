@@ -16,12 +16,16 @@ export class AuthService {
 
     async createAccount({email, password , name ,role= "user"}){
         try {
-            const userAccount = await this.account.create(ID.unique() ,email,password,name );
-            if (userAccount) {
-                await this.login({ email, password });
-                await this.account.updatePrefs({ role });
-                return await this.getCurrentUser();
-            }
+             await this.account.create(ID.unique() ,email,password,name );
+            // if (userAccount ) {
+            //      const userlogin = await this.login({ email, password });
+            //     if (userlogin) {
+            //          await this.account.updatePrefs({ role });
+            //         return await this.getCurrentUser()
+            //     }
+            // }else{
+            //   return userAccount;  
+            // }
             
             
         } catch (error) {
@@ -32,7 +36,7 @@ export class AuthService {
 
     async login({email , password}){
         try {
-           return await this.account.createEmailPasswordSession(email, password);
+            return await this.account.createEmailPasswordSession(email, password);
         } catch (error) {
             throw error;
         }
