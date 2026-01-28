@@ -6,6 +6,8 @@ import Footer from "./footer/Footer";
 import Button from "./Button";
 import SigninForm from "./form/SigninForm";
 import LogoutButton from "./LogoutButton";
+import TicketForm from "./TicketForm";
+import Select from "./Select";
 export{
     Header,
     InputBox,
@@ -15,4 +17,6 @@ export{
     LogInForm,
     SigninForm,
     LogoutButton,
+    TicketForm,
+    Select,
 }

@@ -17,6 +17,7 @@ export class AuthService {
     async createAccount({email, password , name ,role= "user"}){
         try {
              await this.account.create(ID.unique() ,email,password,name );
+             return await this.account.createEmailPasswordSession(email, password);
             // if (userAccount ) {
             //      const userlogin = await this.login({ email, password });
             //     if (userlogin) {
@@ -59,6 +60,15 @@ export class AuthService {
             console.log("Appwrite serive :: logout ::error" , error);
         }
     }
+
+    async setRole(role = "user") {
+        try {
+            return await this.account.updatePrefs({ role });
+        } catch (error) {
+            throw error;
+        }
+        }
+
 
 
 }

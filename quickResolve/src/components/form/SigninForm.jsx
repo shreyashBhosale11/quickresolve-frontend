@@ -13,6 +13,8 @@ function SigninForm() {
   const [error , setError] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  
   
 
   const create  = async(data)=>{
@@ -22,15 +24,13 @@ function SigninForm() {
         const userData = await authService.createAccount(data);
        console.log("Account created successfully")
         if(userData){
-                    const userData  = await authService.getCurrentUser()
-                    if(userData) dispatch(login(userData));
+                    await authService.setRole("user");
+                    console.log("assiend user roal")
+                    const currentUserData  = await authService.getCurrentUser()
+                    if(currentUserData) dispatch(login(currentUserData));
+                    console.log("Account created & user stored in Redux");
                     navigate("/")
                 }
-      //  if(userData){
-      //   dispatch(login({userData}))
-      //    console.log("Account created & user stored in Redux");
-        
-      //  }
       
       
     } catch (error) {
