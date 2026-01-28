@@ -15,7 +15,7 @@ export class Service{
         this.bucket = new Storage(this.client);
     }
 
-    async createTicket({title, description,  userId, agentId = "", attachmentid = "" ,priority = "medium" ,category = "general"}){
+    async createTicket({title, description,  userId, agentId = "", attachmentid = "" ,priority = "medium" }){
         try {
             return await this.database.createDocument(
                 conf.appwriteDatabaseId,
@@ -29,7 +29,7 @@ export class Service{
                     agentId,
                     attachmentid,
                     priority,
-                    category,
+                    
 
                 } ,
                     // [
@@ -49,7 +49,7 @@ export class Service{
 
     }
 
-    async updateTicket({ ticketId, title , description , agentId , status , priority , category}){
+    async updateTicket({ ticketId, title , description , agentId , status , priority }){
         try {
             return await this.database.updateDocument(
                 conf.appwriteDatabaseId,
@@ -61,7 +61,7 @@ export class Service{
                     agentId , 
                     status , 
                     priority ,
-                    category
+                   
                 }
             )
             
@@ -131,19 +131,21 @@ export class Service{
     }
   }
 
-  async uploadFile(file){
+  async uploadFile(file) {
         try {
-            return await this.bucket.createFile(
-                conf.appwriteBucketId,
-                ID.unique(),
-                file
-            )
-            
+            const response = await this.bucket.createFile(
+            conf.appwriteBucketId,
+            ID.unique(),
+            file
+            );
+            console.log("Uploaded file response:", response);
+            return response; // this should have $id
         } catch (error) {
-            console.log("Appwrite serive :: uploadeFile ::error" , error);
-             return false
+            console.error("Appwrite service :: uploadFile error:", error);
+            return null; // safer fallback
         }
-    }
+        }
+
 
        async deleteFile(fileId){
         try {
@@ -164,6 +166,13 @@ export class Service{
             conf.appwriteBucketId,
             fileId
         )
+    }
+
+    getFileUrl(fileId){
+        if (!fileId) return null;
+        return this.bucket.getFileView(
+            conf.appwriteBucketId,
+             fileId);
     }
 
 }

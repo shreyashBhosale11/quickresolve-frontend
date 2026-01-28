@@ -27,9 +27,13 @@ function SigninForm() {
                     await authService.setRole("user");
                     console.log("assiend user roal")
                     const currentUserData  = await authService.getCurrentUser()
-                    if(currentUserData) dispatch(login(currentUserData));
+                  if(currentUserData) {
+                    console.log(currentUserData)
+                    dispatch(login(currentUserData));
                     console.log("Account created & user stored in Redux");
                     navigate("/")
+                  }
+                   
                 }
       
       

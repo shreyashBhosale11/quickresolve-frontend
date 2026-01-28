@@ -12,15 +12,21 @@ function App() {
   const [count, setCount] = useState(0)
   const dispatch = useDispatch()
 
-  useEffect(() => {
-  authService.getCurrentUser()
-    .then((user) => {
+  const run = async()=>{
+    const user = await authService.getCurrentUser();
+    
       if (user) {
+        console.log(user);
         dispatch(login(user));
+
       } else {
         dispatch(logout());
       }
-    });
+  }
+
+  useEffect(() => {
+       run();
+    
 }, []);
 
   return (

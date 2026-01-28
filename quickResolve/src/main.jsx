@@ -3,10 +3,11 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { Provider } from 'react-redux'
-import store from './store/store.js'
+import store from '../src/store/store.js'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import { LogInForm, SigninForm, TicketForm } from './components/index.js'
+import TicketCard from './components/TicketCard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path:"/Addticket",
         element:<TicketForm/>
+      },
+      {
+        path:"/Alltickets",
+        element:<TicketCard/>
       }
     
       

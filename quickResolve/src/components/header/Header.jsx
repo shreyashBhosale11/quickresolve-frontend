@@ -25,8 +25,8 @@ function Header() {
       active: !authStatus,
     },
      {
-      name: "All Ticket",
-      slug: "/all-Ticket",
+      name: "All Tickets",
+      slug: "/Alltickets",
       active: authStatus,
   },
   {
