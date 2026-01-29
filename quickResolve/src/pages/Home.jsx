@@ -6,15 +6,7 @@ function Home() {
 
   const authStatus = useSelector((state)=>state.auth.status)
   const [ticket , setTicket ] = useState([]);
-  // useEffect(()=>{
-  //   if (authStatus){
-  //     ticketSerive.getUserTicket().then((ticket)=>{
-  //       if (ticket) {
-  //         setTicket(ticket.documents)
-  //       }
-  //     })
-  //   }
-  // },[])
+ 
  if (!authStatus ) {
   return(
     <div>log in </div>
