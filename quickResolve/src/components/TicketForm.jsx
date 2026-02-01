@@ -71,47 +71,69 @@ function TicketForm() {
   }
 
   return (
-    <div className='py-8'>
-      <form onSubmit={handleSubmit(Add)}>
-        <div className='flex'>
-          <div className='w-2/3 px-4'>
-            <InputBox 
-              label="Title:"
-              placeholder="Title"
-              className='mb-4'
+  <div  className="py-10 px-4 bg-neutral-50 min-h-screen">
+    <form onSubmit={handleSubmit(Add)}>
+      {/* Card */}
+      <div className="mx-auto max-w-5xl bg-white border border-neutral-200 rounded-xl shadow-sm p-6">
+
+        {/* Header */}
+        <div className="mb-6 border-b border-neutral-200 pb-4">
+          <h2 className="text-xl font-semibold text-neutral-800">
+            Create Ticket
+          </h2>
+          <p className="text-sm text-neutral-500">
+            Provide details so our team can help you faster.
+          </p>
+        </div>
+
+        {/* Form Content */}
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          
+          {/* Left Section */}
+          <div className="lg:col-span-2 space-y-4">
+            <InputBox
+              label="Title"
+              placeholder="Short summary of the issue"
               {...register("title", { required: true })}
             />
 
-            <InputBox 
-              label="Description:"
-              placeholder="Description"
-              className='pb-20'
+            <InputBox
+              label="Description"
+              placeholder="Explain your problem in detail"
+              className="min-h-[140px]"
               {...register("description", { required: true })}
             />
           </div>
 
-          <div className='w-1/3 px-4'>
-            <InputBox 
-              label="Upload Image:"
+          {/* Right Section */}
+          <div className="space-y-4">
+            <InputBox
+              label="Upload Image"
               type="file"
               accept="image/png, image/jpg, image/jpeg, image/gif"
-              className='mb-4'
               {...register("ticketAttachments")}
             />
 
-            <Select 
-              options={["low", "normal", "high"]}
+            <Select
               label="Priority"
-              className="mb-4"
+              options={["low", "normal", "high"]}
               {...register("priority", { required: true })}
             />
+             
 
-            <Button type='submit' text='Submit' />
+
+            <Button
+              type="submit"
+              text="Submit Ticket"
+              className="w-full "
+            />
           </div>
         </div>
-      </form>
-    </div>
-  )
+      </div>
+    </form>
+  </div>
+);
+
 }
 
 export default TicketForm

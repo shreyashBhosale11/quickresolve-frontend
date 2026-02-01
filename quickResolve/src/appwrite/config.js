@@ -49,26 +49,20 @@ export class Service{
 
     }
 
-    async updateTicket({ ticketId, title , description , agentId , status , priority }){
-        try {
-            return await this.database.updateDocument(
-                conf.appwriteDatabaseId,
-                conf.appwriteCollectionId,
-                 ticketId,
-                {
-                    title , 
-                    description , 
-                    agentId , 
-                    status , 
-                    priority ,
-                   
-                }
-            )
-            
-        } catch (error) {
-             console.log("Appwrite serive :: UpdateTicket ::error" , error);
-        }
-    }
+   async updateTicket(ticketId, data) {
+  try {
+    return await this.database.updateDocument(
+      conf.appwriteDatabaseId,
+      conf.appwriteCollectionId,
+      ticketId, // must be the document ID
+      data
+    );
+  } catch (error) {
+    console.log("Appwrite service :: UpdateTicket ::error", error);
+    throw error; // rethrow to catch in component
+  }
+}
+
 
     async getUserTicket({userId}){
         try {
@@ -149,7 +143,7 @@ export class Service{
 
        async deleteFile(fileId){
         try {
-             await this.bucket.createFile(
+             await this.bucket.deleteFile(
                 conf.appwriteBucketId,
                 fileId
             )

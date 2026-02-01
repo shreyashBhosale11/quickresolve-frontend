@@ -8,6 +8,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import { LogInForm, SigninForm, TicketForm } from './components/index.js'
 import TicketCard from './components/TicketCard.jsx'
+import AllTickets from './pages/AllTickets.jsx'
+import TicketDetailpage from '././pages/TicketDetailPage.jsx'
 
 const router = createBrowserRouter([
   {
@@ -31,7 +33,11 @@ const router = createBrowserRouter([
       },
       {
         path:"/Alltickets",
-        element:<TicketCard/>
+        element:<AllTickets/>
+      },
+      {
+        path:"/ticket/:ticketId",
+        element:<TicketDetailpage/>
       }
     
       

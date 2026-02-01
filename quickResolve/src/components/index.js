@@ -8,6 +8,9 @@ import SigninForm from "./form/SigninForm";
 import LogoutButton from "./LogoutButton";
 import TicketForm from "./TicketForm";
 import Select from "./Select";
+import ReplyInput from "./ReplyInput";
+import ReplyList from "./ReplyList";
+import UpdateTicket from "./UpdateTicket";
 export{
     Header,
     InputBox,
@@ -19,4 +22,7 @@ export{
     LogoutButton,
     TicketForm,
     Select,
+    ReplyInput,
+    ReplyList,
+    UpdateTicket,
 }

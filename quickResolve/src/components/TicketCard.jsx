@@ -1,61 +1,115 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
-import { CreditCard } from 'appwrite'
-import ticketSerive from '../appwrite/config'
-import { createTicket } from '../store/ticketSlice'
-
-function TicketCard() {
-    
-    const cards = useSelector((state) =>state.ticket.tickets);
-    const dispatch = useDispatch();
-
-   
-
-    
-
-    
-        useEffect(() => {
-        const fetchTickets = async () => {
-            const response = await ticketSerive.getAllTickets();
-            if (response?.documents) {
-            dispatch(createTicket(response.documents));
-            }
-        }
+import React from "react"
+import ticketSerive from "../appwrite/config"
+import { useNavigate } from "react-router-dom"
 
 
 
-        fetchTickets();
 
-            },[ dispatch])
 
-    if(!cards || cards.length === 0){
-        return<p>No carde found</p>
-    }
-    
+function TicketCard({ ticket }) {
+
+  const navigate = useNavigate();
+const onView = ()=>{
+  
+  navigate(`/ticket/${ticket.id}`)
+  
+}
+
   return (
-    
-    <>
-        {cards.map((card)=>(
-            <div key={card.$id} className="bg-neutral-primary-soft block max-w-sm p-6 border border-default rounded-base shadow-xs">
-        <a href="#">
-            <img className="rounded-base" src={card.attachmentid ? ticketSerive.getFileUrl(card.attachmentid) : "/default-image.jpg"}
-  alt={card.title} />
-        </a>
-        <a href="#">
-            <h5 className="mt-6 mb-2 text-2xl font-semibold tracking-tight text-heading">{card.title}</h5>
-        </a>
-        <p className="mb-6 text-body">{card.description}</p>
-        <a href="#" className="inline-flex items-center text-body bg-neutral-secondary-medium box-border border border-default-medium hover:bg-neutral-tertiary-medium hover:text-heading focus:ring-4 focus:ring-neutral-tertiary shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">
-            Read more
-            <svg className="w-4 h-4 ms-1.5 rtl:rotate-180 -me-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/></svg>
-        </a>
+    <div 
+      className="
+        bg-white dark:bg-gray-800
+        border border-gray-200 dark:border-gray-700
+        rounded-xl
+        shadow-sm
+        overflow-hidden
+        flex flex-col
+        transition-all
+        hover:shadow-md hover:-translate-y-1
+      "
+    >
+      {/* Image */}
+      <img
+        className="w-full h-44 object-cover"
+        src={
+          ticket.attachmentid
+            ? ticketSerive.getFileUrl(ticket.attachmentid)
+            : "/default-image.jpg"
+        }
+        alt={ticket.title}
+      />
+
+      {/* Content */}
+      <div className="p-6 flex flex-col flex-1">
+        {/* Title */}
+        <h5 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">
+          {ticket.title}
+        </h5>
+
+        {/* Description */}
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+          {ticket.description}
+        </p>
+
+        {/* Meta Info */}
+        <div className="flex items-center justify-between text-xs mb-4">
+          {/* Priority */}
+          <span
+            className={`px-2 py-1 rounded-full font-medium
+              ${
+                ticket.priority === "high"
+                  ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300"
+                  : ticket.priority === "medium"
+                  ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300"
+                  : "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
+              }
+            `}
+          >
+            {ticket.priority || "low"} priority
+          </span>
+
+          {/* Status */}
+          <span
+            className={`px-2 py-1 rounded-full font-medium
+              ${
+                ticket.status === "open"
+                  ? "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300"
+                  : "bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300"
+              }
+            `}
+          >
+            {ticket.status || "open"}
+          </span>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-auto flex items-center justify-between">
+          <span className="text-xs text-gray-500 dark:text-gray-400">
+            Created: {new Date(ticket.createdAt).toLocaleDateString()}
+          </span>
+
+          <button onClick={onView}
+            className="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
+          >
+            View
+            <svg
+              className="w-4 h-4 ml-1"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
-        ))}
-
-    
-    </>
-
   )
 }
 
