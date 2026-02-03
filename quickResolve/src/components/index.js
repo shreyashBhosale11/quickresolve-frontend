@@ -11,6 +11,7 @@ import Select from "./Select";
 import ReplyInput from "./ReplyInput";
 import ReplyList from "./ReplyList";
 import UpdateTicket from "./UpdateTicket";
+import StatCard from "./StateCard";
 export{
     Header,
     InputBox,
@@ -25,4 +26,5 @@ export{
     ReplyInput,
     ReplyList,
     UpdateTicket,
+    StatCard,
 }

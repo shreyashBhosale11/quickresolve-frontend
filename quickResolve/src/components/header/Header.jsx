@@ -13,7 +13,12 @@ function Header() {
       slug: "/",
       active : true
     },
-    
+    {
+      name:"AdminDashboard",
+      slug:"/AdminDashboard",
+      active: authStatus
+    }
+    ,
     
      {
       name: "All Tickets",
@@ -25,6 +30,11 @@ function Header() {
       slug: "/Addticket",
       active: authStatus,
   },
+  {
+    name: "My ticket",
+    slug: "/MyTicket",
+    active: authStatus,
+  }
 
  
   ]

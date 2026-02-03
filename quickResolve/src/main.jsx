@@ -10,6 +10,11 @@ import { LogInForm, SigninForm, TicketForm } from './components/index.js'
 import TicketCard from './components/TicketCard.jsx'
 import AllTickets from './pages/AllTickets.jsx'
 import TicketDetailpage from '././pages/TicketDetailPage.jsx'
+import MyTickets from './pages/MyTickets.jsx'
+import NotFound from './pages/NotFound.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
+import Unauthorized from "./pages/Unauthorized.jsx"
+import AdminDashboard from './pages/AdminDashboard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -28,8 +33,12 @@ const router = createBrowserRouter([
         element:<LogInForm/>
       },
       {
-        path:"/Addticket",
-        element:<TicketForm/>
+      path: "/Addticket",
+      element: (
+        <ProtectedRoute allowedRoles={['user', 'admin']}>
+          <TicketForm />
+        </ProtectedRoute>
+      ),
       },
       {
         path:"/Alltickets",
@@ -38,7 +47,25 @@ const router = createBrowserRouter([
       {
         path:"/ticket/:ticketId",
         element:<TicketDetailpage/>
-      }
+      },
+      {
+        path:"/MyTicket",
+        element:<MyTickets/>
+      },
+      {
+        path:"/AdminDashboard",
+        element: <AdminDashboard/>
+      },
+
+
+      {
+        path:"/unauthorized",
+        element:<Unauthorized/>
+      },
+       {
+        path: '*',
+        element: <NotFound />,
+      },
     
       
     ]

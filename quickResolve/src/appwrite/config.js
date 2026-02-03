@@ -69,7 +69,7 @@ export class Service{
             return await this.database.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                [Query.equal("userId", userId)]
+                [Query.equal("userId",[ userId])]
             )
         } catch (error) {
              console.log("Appwrite serive :: getUserTicket ::error" , error);
@@ -78,11 +78,11 @@ export class Service{
 
      async getAgentTicket({agentId}){
         try {
-
+           
             return await this.database.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                [Query.equal("agentId", agentId)]
+                [Query.equal("agentId", [agentId])]
             )
         } catch (error) {
              console.log("Appwrite serive :: getAgentTicket ::error" , error);

@@ -11,9 +11,10 @@ function AllTickets() {
      
     const cards = useSelector((state) =>state.ticket.tickets);
     const dispatch = useDispatch();
+    const role = useSelector((state) => state.auth.role);
 
    
-   
+  
     useEffect(() => {
     const fetchTickets = async () => {
         const response = await ticketSerive.getAllTickets();

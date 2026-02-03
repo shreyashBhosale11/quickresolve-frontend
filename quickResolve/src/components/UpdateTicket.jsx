@@ -83,7 +83,7 @@ function UpdateTicket({ ticket }) {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
+          className="!bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
           text={isSubmitting ? "Updating..." : "Update Ticket"}
         />
       </div>

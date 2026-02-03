@@ -40,7 +40,7 @@ function ReplyInput({ ticketId }) {
       <button
         onClick={handleSend}
         disabled={!message.trim()}
-        className={`bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed`}
+        className={`!bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed`}
       >
         Send
       </button>
