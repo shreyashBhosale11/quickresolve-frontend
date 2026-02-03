@@ -4,7 +4,8 @@ import { useNavigate , Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 function Header() {
   const authStatus = useSelector((state)=>state.auth.status)
-
+  const role = useSelector((state) => state.auth.role);
+ 
   const navigate = useNavigate();
 
   const navItem =[
@@ -13,27 +14,27 @@ function Header() {
       slug: "/",
       active : true
     },
-    {
-      name:"AdminDashboard",
-      slug:"/AdminDashboard",
-      active: authStatus
-    }
-    ,
     
+   
      {
-      name: "All Tickets",
-      slug: "/Alltickets",
-      active: authStatus,
-  },
+      name: "Tickets",
+      slug: "/alltickets",
+      active: authStatus && role === "admin",
+    },
+    {
+      name: "Create Ticket",
+      slug: "/addticket",
+      active: authStatus && role === "user",
+    },
   {
-      name: "Add Ticket",
-      slug: "/Addticket",
-      active: authStatus,
+    name: "My tickets",
+    slug: "/myTicket",
+    active: authStatus && role === "user",
   },
-  {
-    name: "My ticket",
-    slug: "/MyTicket",
-    active: authStatus,
+   {
+    name: "assign tickets",
+    slug: "/assignedTicket",
+    active: authStatus && role === "agent",
   }
 
  

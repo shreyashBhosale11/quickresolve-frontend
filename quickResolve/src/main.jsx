@@ -15,6 +15,8 @@ import NotFound from './pages/NotFound.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
 import Unauthorized from "./pages/Unauthorized.jsx"
 import AdminDashboard from './pages/AdminDashboard.jsx'
+import UserDashboard from './pages/UserDashboard.jsx'
+import AgentDashboard from './pages/AgentDashboard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -33,28 +35,66 @@ const router = createBrowserRouter([
         element:<LogInForm/>
       },
       {
-      path: "/Addticket",
+      path: "/addticket",
       element: (
-        <ProtectedRoute allowedRoles={['user', 'admin']}>
+        <ProtectedRoute allowedRoles={['user']}>
           <TicketForm />
         </ProtectedRoute>
       ),
       },
       {
-        path:"/Alltickets",
-        element:<AllTickets/>
+        path: "/alltickets",
+        element: (
+          <ProtectedRoute allowedRoles={[ "admin"]}>
+            <AllTickets />
+          </ProtectedRoute>
+        ),
+      },
+       {
+        path: "ticket/:ticketId",
+        element: (
+          <ProtectedRoute allowedRoles={["user", "agent", "admin"]}>
+            <TicketDetailpage />
+          </ProtectedRoute>
+        ),
       },
       {
-        path:"/ticket/:ticketId",
-        element:<TicketDetailpage/>
+        path:"/myTicket",
+        element:(
+        <ProtectedRoute allowedRoles={["user"]}>
+          <MyTickets/>
+        </ProtectedRoute>)
+      },
+       {
+        path:"/assignedTicket",
+        element:(
+        <ProtectedRoute allowedRoles={["agent"]}>
+          <MyTickets/>
+        </ProtectedRoute>)
       },
       {
-        path:"/MyTicket",
-        element:<MyTickets/>
+        path: "/admin/dashboard",
+        element: (
+          <ProtectedRoute allowedRoles={["admin"]}>
+            <AdminDashboard />
+          </ProtectedRoute>
+        ),
+      },
+       {
+        path: "/user/dashboard",
+        element: (
+          <ProtectedRoute allowedRoles={["user"]}>
+            <UserDashboard />
+          </ProtectedRoute>
+        ),
       },
       {
-        path:"/AdminDashboard",
-        element: <AdminDashboard/>
+        path: "/agent/dashboard",
+        element: (
+          <ProtectedRoute allowedRoles={["agent"]}>
+            <AgentDashboard />
+          </ProtectedRoute>
+        ),
       },
 
 

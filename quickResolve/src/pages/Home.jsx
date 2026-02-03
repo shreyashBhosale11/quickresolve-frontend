@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   const authStatus = useSelector((state) => state.auth.status);
+  const role = useSelector((state) => state.auth.role);
 
-  // If user is logged in → send to dashboard
-  // if (authStatus) {
-  //   return <Navigate to="/dashboard" />;
-  // }
+  
+ useEffect(() => {
+    if (authStatus) {
+      if (role === "admin") {
+        navigate("/admin/dashboard");
+      } else if (role === "agent")  {
+        navigate("/agent/dashboard");
+      }else{
+        navigate("/user/dashboard");
+      }
+    }
+  }, [authStatus, role, navigate]);
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-50 px-4">
